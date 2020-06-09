@@ -14,16 +14,17 @@ import javax.ws.rs.QueryParam;
 public class HelloWorldResource {
 
     @Inject
-    private UserRepository userRepository;
+    private User user;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response helloWorld(@QueryParam("name") String name) {
-        if (userRepository == null) {
+        if (user == null) {
             throw new IllegalArgumentException();
         }
+        user.setName(name);
         return Response
-                .ok("Hello " + name + " - " + userRepository)
+                .ok("Hello " + user.getName())
                 .type(MediaType.TEXT_PLAIN)
                 .build();
     }
